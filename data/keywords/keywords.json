@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1001,
+        "name": "连衣裙",
+        "status": "Active",
+        "adgroup_id": 101
+    },
+    {
+        "id": 1002,
+        "name": "T恤",
+        "status": "Active",
+        "adgroup_id": 102
+    },
+    {
+        "id": 2001,
+        "name": "智能手机",
+        "status": "Paused",
+        "adgroup_id": 201
+    },
+    {
+        "id": 3001,
+        "name": "品牌",
+        "status": "Active",
+        "adgroup_id": 301
+    }
+]
