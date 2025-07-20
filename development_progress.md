@@ -16,3 +16,12 @@
 - **Wrote unit tests for the configuration management module:**
   - Created `tests/test_config.py` with test cases for loading, saving, and encryption/decryption.
   - All tests passed, ensuring the module's functionality.
+
+### Account Management Module
+
+- **Implemented the account management module:**
+  - Created the `src/account.py` module to handle account-related functionalities.
+  - Implemented a function to simulate fetching account information from the Baidu API.
+- **Wrote unit tests for the account management module:**
+  - Created `tests/test_account.py` to test the account module.
+  - All tests passed, ensuring the module's functionality.
