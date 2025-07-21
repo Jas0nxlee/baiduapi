@@ -1,7 +1,1 @@
-{
-    "log_level": "INFO",
-    "backup_policy": {
-        "enabled": true,
-        "interval_days": 7
-    }
-}
+{"use_mock_api": false}

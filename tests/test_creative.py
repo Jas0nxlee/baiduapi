@@ -1,6 +1,8 @@
 import unittest
 import os
 import json
+import unittest.mock
+from unittest.mock import patch
 from src.creative import (
     load_creatives,
     save_creatives,
@@ -26,9 +28,25 @@ class TestCreative(unittest.TestCase):
         if os.path.exists(self.test_creatives_path):
             os.remove(self.test_creatives_path)
 
-    def test_load_creatives(self):
-        creatives = load_creatives(self.test_creatives_path)
+    @patch('src.creative.requests.get')
+    def test_load_creatives_real_api(self, mock_get):
+        with open('config/app_config.json', 'w') as f:
+            json.dump({"use_mock_api": False}, f)
+
+        mock_response = unittest.mock.Mock()
+        mock_response.json.return_value = self.creatives_data
+        mock_response.raise_for_status.return_value = None
+        mock_get.return_value = mock_response
+
+        creatives = load_creatives()
         self.assertEqual(creatives, self.creatives_data)
+
+    def test_load_creatives_mock_api(self):
+        with open('config/app_config.json', 'w') as f:
+            json.dump({"use_mock_api": True}, f)
+
+        creatives = load_creatives()
+        self.assertEqual(creatives[0]['title'], "夏季连衣裙，清凉一夏")
 
     def test_save_creatives(self):
         new_creatives = self.creatives_data + [{"id": 40001, "title": "测试创意", "status": "Draft", "adgroup_id": 401}]

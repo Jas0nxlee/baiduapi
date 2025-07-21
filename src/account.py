@@ -1,19 +1,29 @@
-import json
+import requests
+from src.config import load_config
+
+API_BASE_URL = "https://api.baidu.com"
 
 def get_account_info():
     """
-    Simulates a call to the Baidu API to get account information.
-    In a real application, this would make a network request.
+    Gets account information from the Baidu API or a mock source.
     """
-    # This is mock data that mimics the structure of the Baidu API response.
-    mock_account_data = {
-        "balance": 1000.0,
-        "budget": 500.0,
-        "region": "CN",
-        "domain": "example.com",
-        "status": "Active"
+    app_config = load_config('config/app_config.json')
+    if app_config.get("use_mock_api", False):
+        return {
+            "balance": 1000.0,
+            "budget": 500.0,
+            "region": "CN",
+            "domain": "example.com",
+            "status": "Active"
+        }
+
+    api_config = load_config('config/api_config.json')
+    headers = {
+        "Authorization": f"Bearer {api_config['api_key']}:{api_config['api_secret']}"
     }
-    return mock_account_data
+    response = requests.get(f"{API_BASE_URL}/api/v1/accounts", headers=headers)
+    response.raise_for_status()
+    return response.json()
 
 def display_account_info(account_data):
     """Prints the account information to the console."""

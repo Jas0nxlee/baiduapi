@@ -1,6 +1,8 @@
 import unittest
 import os
 import json
+import unittest.mock
+from unittest.mock import patch
 from src.campaign import (
     load_campaigns,
     save_campaigns,
@@ -24,9 +26,25 @@ class TestCampaign(unittest.TestCase):
         if os.path.exists(self.test_campaigns_path):
             os.remove(self.test_campaigns_path)
 
-    def test_load_campaigns(self):
-        campaigns = load_campaigns(self.test_campaigns_path)
+    @patch('src.campaign.requests.get')
+    def test_load_campaigns_real_api(self, mock_get):
+        with open('config/app_config.json', 'w') as f:
+            json.dump({"use_mock_api": False}, f)
+
+        mock_response = unittest.mock.Mock()
+        mock_response.json.return_value = self.campaigns_data
+        mock_response.raise_for_status.return_value = None
+        mock_get.return_value = mock_response
+
+        campaigns = load_campaigns()
         self.assertEqual(campaigns, self.campaigns_data)
+
+    def test_load_campaigns_mock_api(self):
+        with open('config/app_config.json', 'w') as f:
+            json.dump({"use_mock_api": True}, f)
+
+        campaigns = load_campaigns()
+        self.assertEqual(campaigns[0]['name'], "夏季促销计划")
 
     def test_save_campaigns(self):
         new_campaigns = self.campaigns_data + [{"id": 4, "name": "测试计划", "status": "Draft"}]

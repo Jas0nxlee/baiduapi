@@ -1,6 +1,8 @@
 import unittest
 import os
 import json
+import unittest.mock
+from unittest.mock import patch
 from src.adgroup import (
     load_adgroups,
     save_adgroups,
@@ -26,9 +28,25 @@ class TestAdgroup(unittest.TestCase):
         if os.path.exists(self.test_adgroups_path):
             os.remove(self.test_adgroups_path)
 
-    def test_load_adgroups(self):
-        adgroups = load_adgroups(self.test_adgroups_path)
+    @patch('src.adgroup.requests.get')
+    def test_load_adgroups_real_api(self, mock_get):
+        with open('config/app_config.json', 'w') as f:
+            json.dump({"use_mock_api": False}, f)
+
+        mock_response = unittest.mock.Mock()
+        mock_response.json.return_value = self.adgroups_data
+        mock_response.raise_for_status.return_value = None
+        mock_get.return_value = mock_response
+
+        adgroups = load_adgroups()
         self.assertEqual(adgroups, self.adgroups_data)
+
+    def test_load_adgroups_mock_api(self):
+        with open('config/app_config.json', 'w') as f:
+            json.dump({"use_mock_api": True}, f)
+
+        adgroups = load_adgroups()
+        self.assertEqual(adgroups[0]['name'], "夏季促销-连衣裙")
 
     def test_save_adgroups(self):
         new_adgroups = self.adgroups_data + [{"id": 401, "name": "测试单元", "status": "Draft", "campaign_id": 4}]

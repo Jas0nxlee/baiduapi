@@ -1,9 +1,25 @@
+import requests
+from src.config import load_config
 import json
 
-def load_adgroups(file_path):
-    """从 JSON 文件加载单元数据。"""
-    with open(file_path, 'r') as f:
-        return json.load(f)
+API_BASE_URL = "https://api.baidu.com"
+
+def load_adgroups():
+    """
+    Gets adgroups from the Baidu API or a mock source.
+    """
+    app_config = load_config('config/app_config.json')
+    if app_config.get("use_mock_api", False):
+        with open('data/adgroups/adgroups.json', 'r') as f:
+            return json.load(f)
+
+    api_config = load_config('config/api_config.json')
+    headers = {
+        "Authorization": f"Bearer {api_config['api_key']}:{api_config['api_secret']}"
+    }
+    response = requests.get(f"{API_BASE_URL}/api/v1/adgroups", headers=headers)
+    response.raise_for_status()
+    return response.json()
 
 def save_adgroups(file_path, adgroups):
     """将单元数据保存到 JSON 文件。"""
