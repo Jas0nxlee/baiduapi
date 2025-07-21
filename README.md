@@ -14,11 +14,11 @@
 
 ```mermaid
 graph TD
-    A[用户] --> B{浏览器}
-    B --> C[Flask Web应用 (app.py)]
-    C --> D{业务逻辑层 (src/)}
-    D --> E_API[百度推广API]
-    D --> E_Local[本地JSON文件 (模拟数据)]
+    A[用户] --> B{浏览器};
+    B --> C[Flask Web应用 (app.py)];
+    C --> D{业务逻辑层 (src/)};
+    D --> E_API[百度推广API];
+    D --> E_Local[本地JSON文件 (模拟数据)];
 ```
 
 ## 模块详解
