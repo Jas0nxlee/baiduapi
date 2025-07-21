@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+{% block content %}
+<h2>计划管理</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>名称</th>
+        <th>状态</th>
+    </tr>
+    {% for campaign in campaigns %}
+    <tr>
+        <td>{{ campaign.id }}</td>
+        <td><a href="{{ url_for('adgroups_page', campaign_id=campaign.id) }}">{{ campaign.name }}</a></td>
+        <td>{{ campaign.status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+{% block content %}
+<h2>账户概览</h2>
+<ul>
+    <li>余额: {{ account_info.balance }}</li>
+    <li>预算: {{ account_info.budget }}</li>
+    <li>地域: {{ account_info.region }}</li>
+    <li>域名: {{ account_info.domain }}</li>
+    <li>状态: {{ account_info.status }}</li>
+</ul>
+{% endblock %}
