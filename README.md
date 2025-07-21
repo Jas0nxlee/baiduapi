@@ -14,20 +14,7 @@
 
 ```mermaid
 graph TD
-    subgraph "用户端"
-        A[用户] --> B{浏览器};
-    end
 
-    subgraph "服务端"
-        B --> C[Flask Web应用 (app.py)];
-        C --> D{业务逻辑层 (src/)};
-    end
-
-    subgraph "数据层"
-        D --> E{数据源};
-        E --> E_API[百度推广API];
-        E --> E_Local[本地JSON文件 (模拟数据)];
-    end
 ```
 
 ## 模块详解
