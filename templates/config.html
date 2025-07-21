@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+{% block content %}
+<h2>API 配置</h2>
+<form method="post">
+    <label for="api_key">API Key:</label><br>
+    <input type="text" id="api_key" name="api_key" value="{{ api_config.api_key }}"><br>
+    <label for="api_secret">API Secret:</label><br>
+    <input type="text" id="api_secret" name="api_secret" value="{{ api_config.api_secret }}"><br><br>
+    <input type="submit" value="保存">
+</form>
+{% endblock %}

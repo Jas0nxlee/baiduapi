@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "name": "夏季促销计划",
+        "status": "Active"
+    },
+    {
+        "id": 2,
+        "name": "新品推广计划",
+        "status": "Paused"
+    },
+    {
+        "id": 3,
+        "name": "品牌宣传计划",
+        "status": "Active"
+    }
+]

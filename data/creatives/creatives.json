@@ -1,0 +1,30 @@
+[
+    {
+        "id": 10001,
+        "title": "夏季连衣裙，清凉一夏",
+        "description1": "新款上市，限时折扣",
+        "status": "Active",
+        "adgroup_id": 101
+    },
+    {
+        "id": 10002,
+        "title": "纯棉T恤，舒适透气",
+        "description1": "多色可选，百搭时尚",
+        "status": "Active",
+        "adgroup_id": 102
+    },
+    {
+        "id": 20001,
+        "title": "最新款智能手机，性能卓越",
+        "description1": "立即预定，享多重好礼",
+        "status": "Paused",
+        "adgroup_id": 201
+    },
+    {
+        "id": 30001,
+        "title": "XX品牌，值得信赖",
+        "description1": "官方旗舰店，品质保证",
+        "status": "Active",
+        "adgroup_id": 301
+    }
+]
